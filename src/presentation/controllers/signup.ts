@@ -9,6 +9,7 @@ export class SignUpController {
         return badRequest(new MissingParamError(field))
       }
     }
+    // return "badRequest" even if it doesn't pass the for
     return badRequest(new MissingParamError('missing param'))
   }
 }
