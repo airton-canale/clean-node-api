@@ -1,16 +1,24 @@
 import { HttpResponse } from '../protocols/http'
+import { ServerError } from '../errors'
+
 export const badRequest = (error: Error): HttpResponse => ({
   statusCode: 400, body: error
 })
 
-export class ServerError extends Error {
-  constructor () {
-    super('Internal server error')
-    this.name = 'ServerError'
-  }
-}
+// export class ServerError extends Error {
+//   constructor () {
+//     super('Internal server error')
+//     this.name = 'ServerError'
+//   }
+// }
 
-export const ok = (data: any): HttpResponse  => ({
+export const serverError = (error: Error): HttpResponse => ({
+  statusCode: 500,
+  //@ts-ignore
+  body: new ServerError(error.stack)
+})
+
+export const ok = (data: any): HttpResponse => ({
   statusCode: 200,
   body: data
 })
